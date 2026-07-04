@@ -1,0 +1,473 @@
+name,slug,county,region,population,zip_code,area_code
+Los Angeles,los-angeles,Los Angeles,Southern California,3898747,90012,213
+San Diego,san-diego,San Diego,Southern California,1386932,92101,619
+San Jose,san-jose,Santa Clara,Bay Area,1013240,95113,408
+San Francisco,san-francisco,San Francisco,Bay Area,873965,94102,415
+Fresno,fresno,Fresno,Central Valley,544510,93721,559
+Sacramento,sacramento,Sacramento,Sacramento Region,524943,95814,916
+Long Beach,long-beach,Los Angeles,Southern California,466742,90802,562
+Oakland,oakland,Alameda,Bay Area,440646,94612,510
+Bakersfield,bakersfield,Kern,Central Valley,383579,93301,661
+Anaheim,anaheim,Orange,Southern California,346824,92805,714
+Stockton,stockton,San Joaquin,Central Valley,320804,95202,209
+Riverside,riverside,Riverside,Southern California,314998,92501,951
+Santa Ana,santa-ana,Orange,Southern California,310227,92701,714
+Irvine,irvine,Orange,Southern California,307670,92606,949
+Chula Vista,chula-vista,San Diego,Southern California,275487,91910,619
+Santa Clarita,santa-clarita,Los Angeles,Southern California,228673,91321,661
+San Bernardino,san-bernardino,San Bernardino,Southern California,222101,92401,909
+Modesto,modesto,Stanislaus,Central Valley,218771,95354,209
+Fontana,fontana,San Bernardino,Southern California,214547,92335,909
+Fremont,fremont,Alameda,Bay Area,214089,94536,510
+Moreno Valley,moreno-valley,Riverside,Southern California,213055,92553,951
+Oxnard,oxnard,Ventura,Southern California,202063,93030,805
+Huntington Beach,huntington-beach,Orange,Southern California,198711,92648,714
+Glendale,glendale,Los Angeles,Southern California,196543,91206,818
+Ontario,ontario,San Bernardino,Southern California,185010,91761,909
+Santa Rosa,santa-rosa,Sonoma,Bay Area,178127,95401,707
+Elk Grove,elk-grove,Sacramento,Sacramento Region,176124,95624,916
+Oceanside,oceanside,San Diego,Southern California,174648,92054,760
+Rancho Cucamonga,rancho-cucamonga,San Bernardino,Southern California,174453,91730,909
+Lancaster,lancaster,Los Angeles,Southern California,173516,93534,661
+Garden Grove,garden-grove,Orange,Southern California,171949,92840,714
+Corona,corona,Riverside,Southern California,169868,92879,951
+Palmdale,palmdale,Los Angeles,Southern California,169450,93550,661
+Sunnyvale,sunnyvale,Santa Clara,Bay Area,155805,94086,408
+Pomona,pomona,Los Angeles,Southern California,151713,91766,909
+Escondido,escondido,San Diego,Southern California,151038,92025,760
+Salinas,salinas,Monterey,Central Coast,150441,93901,831
+Roseville,roseville,Placer,Sacramento Region,147773,95678,916
+Torrance,torrance,Los Angeles,Southern California,147067,90501,310
+Hayward,hayward,Alameda,Bay Area,144186,94541,510
+Fullerton,fullerton,Orange,Southern California,143617,92832,714
+Visalia,visalia,Tulare,Central Valley,141384,93291,559
+Orange,orange,Orange,Southern California,139911,92866,714
+Pasadena,pasadena,Los Angeles,Southern California,138699,91101,626
+Victorville,victorville,San Bernardino,Southern California,134810,92392,760
+Concord,concord,Contra Costa,Bay Area,129295,94520,925
+Santa Clara,santa-clara,Santa Clara,Bay Area,127647,95050,408
+Thousand Oaks,thousand-oaks,Ventura,Southern California,126966,91360,805
+Simi Valley,simi-valley,Ventura,Southern California,126356,93065,805
+Vallejo,vallejo,Solano,Bay Area,126090,94590,707
+Berkeley,berkeley,Alameda,Bay Area,124321,94704,510
+Fairfield,fairfield,Solano,Bay Area,119881,94533,707
+Richmond,richmond,Contra Costa,Bay Area,116448,94801,510
+Murrieta,murrieta,Riverside,Southern California,116223,92562,951
+Antioch,antioch,Contra Costa,Bay Area,115291,94509,925
+Carlsbad,carlsbad,San Diego,Southern California,114746,92008,760
+Downey,downey,Los Angeles,Southern California,114355,90241,562
+Costa Mesa,costa-mesa,Orange,Southern California,111918,92626,714
+Temecula,temecula,Riverside,Southern California,110003,92590,951
+West Covina,west-covina,Los Angeles,Southern California,109501,91790,626
+El Monte,el-monte,Los Angeles,Southern California,109450,91731,626
+Inglewood,inglewood,Los Angeles,Southern California,107762,90301,310
+Burbank,burbank,Los Angeles,Southern California,107337,91502,818
+Ventura,ventura,Ventura,Southern California,106433,93001,805
+El Cajon,el-cajon,San Diego,Southern California,106215,92020,619
+San Mateo,san-mateo,San Mateo,Bay Area,105661,94401,650
+Jurupa Valley,jurupa-valley,Riverside,Southern California,105053,92509,951
+Daly City,daly-city,San Mateo,Bay Area,104901,94014,650
+Rialto,rialto,San Bernardino,Southern California,104026,92376,909
+Norwalk,norwalk,Los Angeles,Southern California,102773,90650,562
+Menifee,menifee,Riverside,Southern California,102527,92584,951
+Hesperia,hesperia,San Bernardino,Southern California,99818,92345,760
+Santa Maria,santa-maria,Santa Barbara,Southern California,99553,93454,805
+Vista,vista,San Diego,Southern California,98381,92081,760
+Compton,compton,Los Angeles,Southern California,96455,90220,323
+Clovis,clovis,Fresno,Central Valley,95631,93611,559
+San Marcos,san-marcos,San Diego,Southern California,94833,92069,760
+South Gate,south-gate,Los Angeles,Southern California,94396,90280,323
+Mission Viejo,mission-viejo,Orange,Southern California,93653,92691,949
+Vacaville,vacaville,Solano,Bay Area,92428,95687,707
+Carson,carson,Los Angeles,Southern California,91714,90745,310
+Chino,chino,San Bernardino,Southern California,91403,91710,909
+Westminster,westminster,Orange,Southern California,90911,92683,714
+Redding,redding,Shasta,North State,89861,96001,530
+Hemet,hemet,Riverside,Southern California,89833,92543,951
+Santa Monica,santa-monica,Los Angeles,Southern California,89736,90401,310
+Indio,indio,Riverside,Southern California,89137,92201,760
+Santa Barbara,santa-barbara,Santa Barbara,Southern California,88410,93101,805
+Chico,chico,Butte,North State,86187,95926,530
+Lake Forest,lake-forest,Orange,Southern California,85858,92630,949
+Whittier,whittier,Los Angeles,Southern California,85331,90601,562
+Newport Beach,newport-beach,Orange,Southern California,85239,92660,949
+San Leandro,san-leandro,Alameda,Bay Area,84950,94577,510
+Hawthorne,hawthorne,Los Angeles,Southern California,84293,90250,310
+Redwood City,redwood-city,San Mateo,Bay Area,84292,94061,650
+Milpitas,milpitas,Santa Clara,Bay Area,84196,95035,408
+Buena Park,buena-park,Orange,Southern California,84034,90620,714
+Citrus Heights,citrus-heights,Sacramento,Sacramento Region,83265,95610,916
+Tracy,tracy,San Joaquin,Central Valley,82922,95376,209
+Alhambra,alhambra,Los Angeles,Southern California,82868,91801,626
+Mountain View,mountain-view,Santa Clara,Bay Area,82376,94040,650
+Livermore,livermore,Alameda,Bay Area,80968,94550,510
+Lakewood,lakewood,Los Angeles,Southern California,80048,90712,562
+Tustin,tustin,Orange,Southern California,79348,92780,714
+Upland,upland,San Bernardino,Southern California,79040,91786,909
+Merced,merced,Merced,Central Valley,78958,95340,209
+Perris,perris,Riverside,Southern California,78700,92570,951
+Chino Hills,chino-hills,San Bernardino,Southern California,78411,91709,909
+Napa,napa,Napa,Bay Area,76915,94558,707
+Bellflower,bellflower,Los Angeles,Southern California,76616,90706,562
+Apple Valley,apple-valley,San Bernardino,Southern California,75791,92307,760
+Baldwin Park,baldwin-park,Los Angeles,Southern California,75390,91706,626
+Alameda,alameda,Alameda,Bay Area,73812,94501,510
+Redlands,redlands,San Bernardino,Southern California,73168,92373,909
+Folsom,folsom,Sacramento,Sacramento Region,72203,95630,916
+San Ramon,san-ramon,Contra Costa,Bay Area,72148,94582,925
+Pleasanton,pleasanton,Alameda,Bay Area,70285,94566,510
+Lake Elsinore,lake-elsinore,Riverside,Southern California,70265,92530,951
+Lynwood,lynwood,Los Angeles,Southern California,69772,90262,323
+Eastvale,eastvale,Riverside,Southern California,69757,92880,951
+Union City,union-city,Alameda,Bay Area,69516,94587,510
+Palo Alto,palo-alto,Santa Clara,Bay Area,68572,94301,650
+Turlock,turlock,Stanislaus,Central Valley,68549,95380,209
+Yorba Linda,yorba-linda,Orange,Southern California,68336,92886,714
+Manteca,manteca,San Joaquin,Central Valley,67096,95336,209
+Redondo Beach,redondo-beach,Los Angeles,Southern California,66747,90277,310
+Camarillo,camarillo,Ventura,Southern California,65201,93010,805
+Yuba City,yuba-city,Sutter,Sacramento Region,64925,95991,530
+Rancho Cordova,rancho-cordova,Sacramento,Sacramento Region,64776,95670,916
+Davis,davis,Yolo,Sacramento Region,64776,95616,530
+Walnut Creek,walnut-creek,Contra Costa,Bay Area,64173,94596,925
+South San Francisco,south-san-francisco,San Mateo,Bay Area,63632,94080,650
+San Clemente,san-clemente,Orange,Southern California,63522,92672,714
+Pittsburg,pittsburg,Contra Costa,Bay Area,63264,94565,925
+Laguna Niguel,laguna-niguel,Orange,Southern California,62967,92677,714
+Pico Rivera,pico-rivera,Los Angeles,Southern California,62942,90660,562
+Montebello,montebello,Los Angeles,Southern California,62500,90640,323
+Lodi,lodi,San Joaquin,Central Valley,62134,95240,209
+Encinitas,encinitas,San Diego,Southern California,62007,92024,760
+Madera,madera,Madera,Central Valley,61416,93637,559
+La Mesa,la-mesa,San Diego,Southern California,61121,91942,619
+Monterey Park,monterey-park,Los Angeles,Southern California,60269,91754,626
+La Habra,la-habra,Orange,Southern California,60239,90631,714
+Cupertino,cupertino,Santa Clara,Bay Area,60170,95014,408
+Santee,santee,San Diego,Southern California,60037,92071,619
+Tulare,tulare,Tulare,Central Valley,59278,93274,559
+Gardena,gardena,Los Angeles,Southern California,58829,90247,310
+Huntington Park,huntington-park,Los Angeles,Southern California,58114,90255,323
+Rocklin,rocklin,Placer,Sacramento Region,57303,95677,916
+San Rafael,san-rafael,Marin,Bay Area,57074,94901,415
+Highland,highland,San Bernardino,Southern California,56999,92346,909
+Arcadia,arcadia,Los Angeles,Southern California,56364,91006,626
+National City,national-city,San Diego,Southern California,56173,91950,619
+Diamond Bar,diamond-bar,Los Angeles,Southern California,55544,91765,626
+Woodland,woodland,Yolo,Sacramento Region,55468,95695,530
+Fountain Valley,fountain-valley,Orange,Southern California,54978,92708,714
+Petaluma,petaluma,Sonoma,Bay Area,54548,94952,707
+Paramount,paramount,Los Angeles,Southern California,54098,90723,323
+Porterville,porterville,Tulare,Central Valley,54088,93257,559
+Hanford,hanford,Kings,Central Valley,53967,93230,559
+Colton,colton,San Bernardino,Southern California,53909,92324,909
+San Jacinto,san-jacinto,Riverside,Southern California,53898,92583,951
+Rosemead,rosemead,Los Angeles,Southern California,53764,91770,626
+Delano,delano,Kern,Central Valley,53041,93215,661
+Novato,novato,Marin,Bay Area,51904,94945,415
+Brentwood,brentwood,Contra Costa,Bay Area,51532,94513,925
+Cathedral City,cathedral-city,Riverside,Southern California,51493,92234,760
+Yucaipa,yucaipa,San Bernardino,Southern California,51367,92399,909
+Palm Desert,palm-desert,Riverside,Southern California,51163,92260,760
+Placentia,placentia,Orange,Southern California,50533,92870,714
+Glendora,glendora,Los Angeles,Southern California,50073,91740,626
+Cerritos,cerritos,Los Angeles,Southern California,49041,90703,562
+Poway,poway,San Diego,Southern California,48841,92064,858
+Gilroy,gilroy,Santa Clara,Bay Area,48821,95020,408
+West Sacramento,west-sacramento,Yolo,Sacramento Region,48744,95691,530
+La Mirada,la-mirada,Los Angeles,Southern California,48527,90638,562
+Rancho Santa Margarita,rancho-santa-margarita,Orange,Southern California,47853,92688,714
+Aliso Viejo,aliso-viejo,Orange,Southern California,47823,92656,714
+Cypress,cypress,Orange,Southern California,47802,90630,714
+Covina,covina,Los Angeles,Southern California,47796,91722,626
+Azusa,azusa,Los Angeles,Southern California,46361,91702,626
+Dublin,dublin,Alameda,Bay Area,46036,94568,510
+Ceres,ceres,Stanislaus,Central Valley,45417,95307,209
+San Luis Obispo,san-luis-obispo,San Luis Obispo,Central Coast,45119,93401,805
+Palm Springs,palm-springs,Riverside,Southern California,44575,92262,760
+Lincoln,lincoln,Placer,Sacramento Region,42819,95648,916
+El Centro,el-centro,Imperial,Southern California,42598,92243,760
+Newark,newark,Alameda,Bay Area,42573,94560,510
+Lompoc,lompoc,Santa Barbara,Southern California,42434,93436,805
+Bell Gardens,bell-gardens,Los Angeles,Southern California,42072,90201,323
+Danville,danville,Contra Costa,Bay Area,42039,94526,925
+Rancho Palos Verdes,rancho-palos-verdes,Los Angeles,Southern California,41643,90275,310
+San Bruno,san-bruno,San Mateo,Bay Area,41114,94066,650
+Rohnert Park,rohnert-park,Sonoma,Bay Area,40971,94928,707
+Coachella,coachella,Riverside,Southern California,40704,92236,951
+La Puente,la-puente,Los Angeles,Southern California,39816,91744,626
+San Gabriel,san-gabriel,Los Angeles,Southern California,39718,91776,626
+Campbell,campbell,Santa Clara,Bay Area,39349,95008,408
+Brea,brea,Orange,Southern California,39282,92821,714
+Culver City,culver-city,Los Angeles,Southern California,38883,90230,310
+Calexico,calexico,Imperial,Southern California,38633,92231,760
+Stanton,stanton,Orange,Southern California,38186,90680,714
+Morgan Hill,morgan-hill,Santa Clara,Bay Area,37882,95037,408
+La Quinta,la-quinta,Riverside,Southern California,37467,92253,951
+Pacifica,pacifica,San Mateo,Bay Area,37234,94044,650
+Beaumont,beaumont,Riverside,Southern California,36877,92223,951
+Montclair,montclair,San Bernardino,Southern California,36664,91763,909
+Monrovia,monrovia,Los Angeles,Southern California,36590,91016,626
+Los Banos,los-banos,Merced,Central Valley,35972,93635,209
+Martinez,martinez,Contra Costa,Bay Area,35824,94553,925
+Temple City,temple-city,Los Angeles,Southern California,35558,91780,626
+Bell,bell,Los Angeles,Southern California,35477,90201,323
+Oakley,oakley,Contra Costa,Bay Area,35432,94561,925
+Manhattan Beach,manhattan-beach,Los Angeles,Southern California,35135,90266,310
+Claremont,claremont,Los Angeles,Southern California,34926,91711,909
+San Juan Capistrano,san-juan-capistrano,Orange,Southern California,34826,92675,714
+Moorpark,moorpark,Ventura,Southern California,34421,93021,805
+West Hollywood,west-hollywood,Los Angeles,Southern California,34399,90069,310
+Beverly Hills,beverly-hills,Los Angeles,Southern California,34109,90210,310
+San Dimas,san-dimas,Los Angeles,Southern California,33371,91773,626
+Dana Point,dana-point,Orange,Southern California,33351,92629,714
+Pleasant Hill,pleasant-hill,Contra Costa,Bay Area,33152,94523,925
+Seaside,seaside,Monterey,Central Coast,33025,93955,831
+Lawndale,lawndale,Los Angeles,Southern California,32769,90260,310
+Wildomar,wildomar,Riverside,Southern California,32176,92595,951
+Menlo Park,menlo-park,San Mateo,Bay Area,32026,94025,650
+Adelanto,adelanto,San Bernardino,Southern California,31765,92301,909
+La Verne,la-verne,Los Angeles,Southern California,31063,91750,626
+Foster City,foster-city,San Mateo,Bay Area,30567,94404,650
+Laguna Hills,laguna-hills,Orange,Southern California,30344,92653,714
+Saratoga,saratoga,Santa Clara,Bay Area,29926,95070,408
+Goleta,goleta,Santa Barbara,Southern California,29888,93117,805
+Paso Robles,paso-robles,San Luis Obispo,Central Coast,29793,93446,805
+Banning,banning,Riverside,Southern California,29603,92220,951
+Los Gatos,los-gatos,Santa Clara,Bay Area,29413,95030,408
+Santa Paula,santa-paula,Ventura,Southern California,29321,93060,805
+Walnut,walnut,Los Angeles,Southern California,29172,91789,626
+San Pablo,san-pablo,Contra Costa,Bay Area,29139,94806,925
+Los Altos,los-altos,Santa Clara,Bay Area,28976,94022,408
+Burlingame,burlingame,San Mateo,Bay Area,28806,94010,650
+San Carlos,san-carlos,San Mateo,Bay Area,28406,94070,650
+Atascadero,atascadero,San Luis Obispo,Central Coast,28310,93422,805
+Atwater,atwater,Merced,Central Valley,28168,95301,209
+East Palo Alto,east-palo-alto,San Mateo,Bay Area,28155,94303,650
+Suisun City,suisun-city,Solano,Bay Area,28111,94585,707
+Monterey,monterey,Monterey,Central Coast,27810,93940,831
+Ridgecrest,ridgecrest,Kern,Central Valley,27616,93555,661
+Maywood,maywood,Los Angeles,Southern California,27395,90270,323
+Eureka,eureka,Humboldt,North State,27191,95501,707
+Norco,norco,Riverside,Southern California,27063,92860,951
+Benicia,benicia,Solano,Bay Area,26997,94510,707
+Windsor,windsor,Sonoma,Bay Area,26801,95492,707
+Imperial Beach,imperial-beach,San Diego,Southern California,26324,91932,619
+Paradise,paradise,Butte,North State,26218,95969,530
+Desert Hot Springs,desert-hot-springs,Riverside,Southern California,25938,92240,951
+Belmont,belmont,San Mateo,Bay Area,25835,94002,650
+Soledad,soledad,Monterey,Central Coast,25738,93960,831
+South Pasadena,south-pasadena,Los Angeles,Southern California,25619,91030,626
+Wasco,wasco,Kern,Central Valley,25545,93280,661
+Lemon Grove,lemon-grove,San Diego,Southern California,25320,91945,619
+Twentynine Palms,twentynine-palms,San Bernardino,Southern California,25048,92277,909
+Brawley,brawley,Imperial,Southern California,24953,92227,760
+Corcoran,corcoran,Kings,Central Valley,24813,93212,559
+Coronado,coronado,San Diego,Southern California,24697,92118,619
+Lemoore,lemoore,Kings,Central Valley,24531,93245,559
+Sanger,sanger,Fresno,Central Valley,24270,93657,559
+Reedley,reedley,Fresno,Central Valley,24194,93654,559
+Seal Beach,seal-beach,Orange,Southern California,24168,90740,714
+Hercules,hercules,Contra Costa,Bay Area,24060,94547,925
+Lafayette,lafayette,Contra Costa,Bay Area,23893,94549,925
+Cudahy,cudahy,Los Angeles,Southern California,23805,90201,323
+Galt,galt,Sacramento,Sacramento Region,23647,95632,916
+San Fernando,san-fernando,Los Angeles,Southern California,23645,91340,818
+El Cerrito,el-cerrito,Contra Costa,Bay Area,23549,94530,925
+Loma Linda,loma-linda,San Bernardino,Southern California,23261,92354,909
+Selma,selma,Fresno,Central Valley,23219,93662,559
+Calabasas,calabasas,Los Angeles,Southern California,23058,91302,818
+Laguna Beach,laguna-beach,Orange,Southern California,22827,92651,714
+Riverbank,riverbank,Stanislaus,Central Valley,22678,95367,209
+Barstow,barstow,San Bernardino,Southern California,22639,92311,909
+Port Hueneme,port-hueneme,Ventura,Southern California,21723,93041,805
+Millbrae,millbrae,San Mateo,Bay Area,21532,94030,650
+Dinuba,dinuba,Tulare,Central Valley,21453,93618,559
+South Lake Tahoe,south-lake-tahoe,El Dorado,Sacramento Region,21403,96150,530
+Duarte,duarte,Los Angeles,Southern California,21321,91010,626
+Blythe,blythe,Riverside,Southern California,20817,92225,951
+Yucca Valley,yucca-valley,San Bernardino,Southern California,20700,92284,909
+Oakdale,oakdale,Stanislaus,Central Valley,20675,95361,209
+Patterson,patterson,Stanislaus,Central Valley,20413,95363,209
+Agoura Hills,agoura-hills,Los Angeles,Southern California,20330,91301,818
+Lomita,lomita,Los Angeles,Southern California,20256,90717,310
+South El Monte,south-el-monte,Los Angeles,Southern California,20116,91733,626
+La Canada Flintridge,la-canada-flintridge,Los Angeles,Southern California,20078,91011,626
+Marina,marina,Monterey,Central Coast,19718,93933,831
+Hermosa Beach,hermosa-beach,Los Angeles,Southern California,19506,90254,310
+American Canyon,american-canyon,Napa,Bay Area,19454,94503,707
+Arvin,arvin,Kern,Central Valley,19304,93203,661
+Chowchilla,chowchilla,Madera,Central Valley,18720,93610,559
+Albany,albany,Alameda,Bay Area,18539,94706,510
+Pinole,pinole,Contra Costa,Bay Area,18390,94564,925
+Dixon,dixon,Solano,Bay Area,18351,95620,707
+Lathrop,lathrop,San Joaquin,Central Valley,18023,95330,209
+Susanville,susanville,Lassen,North State,17974,96130,530
+Orinda,orinda,Contra Costa,Bay Area,17643,94563,925
+Arroyo Grande,arroyo-grande,San Luis Obispo,Central Coast,17252,93420,805
+Arcata,arcata,Humboldt,North State,17231,95521,707
+Rancho Mirage,rancho-mirage,Riverside,Southern California,17218,92270,951
+Shafter,shafter,Kern,Central Valley,16988,93263,661
+El Segundo,el-segundo,Los Angeles,Southern California,16654,90245,310
+Artesia,artesia,Los Angeles,Southern California,16522,90701,562
+Greenfield,greenfield,Monterey,Central Coast,16330,93927,831
+Santa Fe Springs,santa-fe-springs,Los Angeles,Southern California,16223,90670,562
+Laguna Woods,laguna-woods,Orange,Southern California,16192,92637,714
+Ukiah,ukiah,Mendocino,North State,16075,95482,707
+Moraga,moraga,Contra Costa,Bay Area,16016,94556,925
+Truckee,truckee,Nevada,Gold Country,16016,96161,530
+La Palma,la-palma,Orange,Southern California,15568,90623,714
+Oroville,oroville,Butte,North State,15506,95965,530
+Avenal,avenal,Kings,Central Valley,15505,93204,559
+Clearlake,clearlake,Lake,North State,15250,95422,707
+Pacific Grove,pacific-grove,Monterey,Central Coast,15041,93950,831
+Fillmore,fillmore,Ventura,Southern California,15002,93015,805
+Imperial,imperial,Imperial,Southern California,14758,92251,760
+Parlier,parlier,Fresno,Central Valley,14494,93648,559
+Tehachapi,tehachapi,Kern,Central Valley,14414,93561,661
+Ripon,ripon,San Joaquin,Central Valley,14297,95366,209
+Hawaiian Gardens,hawaiian-gardens,Los Angeles,Southern California,14254,90716,562
+California City,california-city,Kern,Central Valley,14120,93505,661
+Red Bluff,red-bluff,Tehama,North State,14076,96080,530
+Mill Valley,mill-valley,Marin,Bay Area,13903,94941,415
+Kerman,kerman,Fresno,Central Valley,13544,93630,559
+Lindsay,lindsay,Tulare,Central Valley,13463,93247,559
+Palos Verdes Estates,palos-verdes-estates,Los Angeles,Southern California,13438,90274,310
+Coalinga,coalinga,Fresno,Central Valley,13380,93210,559
+Auburn,auburn,Placer,Sacramento Region,13330,95603,916
+Grover Beach,grover-beach,San Luis Obispo,Central Coast,13156,93433,805
+San Marino,san-marino,Los Angeles,Southern California,13147,91108,626
+Livingston,livingston,Merced,Central Valley,13058,95334,209
+Carpinteria,carpinteria,Santa Barbara,Southern California,13040,93013,805
+King City,king-city,Monterey,Central Coast,12874,93930,831
+Solana Beach,solana-beach,San Diego,Southern California,12867,92075,619
+Grass Valley,grass-valley,Nevada,Gold Country,12860,95945,530
+Commerce,commerce,Los Angeles,Southern California,12823,90040,323
+McFarland,mcfarland,Kern,Central Valley,12707,93250,661
+Malibu,malibu,Los Angeles,Southern California,12645,90265,310
+San Anselmo,san-anselmo,Marin,Bay Area,12336,94960,415
+Marysville,marysville,Yuba,Sacramento Region,12072,95901,530
+Grand Terrace,grand-terrace,San Bernardino,Southern California,12040,92313,909
+Larkspur,larkspur,Marin,Bay Area,11926,94939,415
+Fortuna,fortuna,Humboldt,North State,11671,95540,707
+Los Alamitos,los-alamitos,Orange,Southern California,11449,90720,714
+Kingsburg,kingsburg,Fresno,Central Valley,11382,93631,559
+Half Moon Bay,half-moon-bay,San Mateo,Bay Area,11324,94019,650
+Healdsburg,healdsburg,Sonoma,Bay Area,11254,95448,707
+Signal Hill,signal-hill,Los Angeles,Southern California,11016,90755,562
+Mendota,mendota,Fresno,Central Valley,11014,93640,559
+Sierra Madre,sierra-madre,Los Angeles,Southern California,10917,91024,626
+Clayton,clayton,Contra Costa,Bay Area,10897,94517,925
+Hillsborough,hillsborough,San Mateo,Bay Area,10825,94010,650
+Piedmont,piedmont,Alameda,Bay Area,10667,94611,510
+Sonoma,sonoma,Sonoma,Bay Area,10648,95476,707
+Farmersville,farmersville,Tulare,Central Valley,10588,93223,559
+Canyon Lake,canyon-lake,Riverside,Southern California,10561,92587,951
+Placerville,placerville,El Dorado,Sacramento Region,10389,95667,530
+Exeter,exeter,Tulare,Central Valley,10334,93221,559
+Morro Bay,morro-bay,San Luis Obispo,Central Coast,10234,93442,805
+Newman,newman,Stanislaus,Central Valley,10224,95360,209
+Shasta Lake,shasta-lake,Shasta,North State,10164,96019,530
+Emeryville,emeryville,Alameda,Bay Area,10080,94608,510
+Anderson,anderson,Shasta,North State,9932,96007,530
+Taft,taft,Kern,Central Valley,9327,93268,661
+Corte Madera,corte-madera,Marin,Bay Area,9253,94925,415
+Orange Cove,orange-cove,Fresno,Central Valley,9078,93646,559
+Tiburon,tiburon,Marin,Bay Area,8962,94920,415
+Cloverdale,cloverdale,Sonoma,Bay Area,8618,95425,707
+Waterford,waterford,Stanislaus,Central Valley,8456,95386,209
+Live Oak,live-oak,Sutter,Sacramento Region,8392,95953,530
+Westlake Village,westlake-village,Los Angeles,Southern California,8270,91361,818
+Mammoth Lakes,mammoth-lakes,Mono,Eastern Sierra,8234,93546,760
+Gonzales,gonzales,Monterey,Central Coast,8187,93926,831
+Rolling Hills Estates,rolling-hills-estates,Los Angeles,Southern California,8067,90274,310
+Los Altos Hills,los-altos-hills,Santa Clara,Bay Area,7922,94022,408
+Ione,ione,Amador,Gold Country,7918,95640,209
+Calimesa,calimesa,Riverside,Southern California,7879,92320,951
+Yreka,yreka,Siskiyou,North State,7765,96097,530
+Calipatria,calipatria,Imperial,Southern California,7705,92233,760
+Corning,corning,Tehama,North State,7663,96021,530
+Pismo Beach,pismo-beach,San Luis Obispo,Central Coast,7655,93449,805
+Crescent City,crescent-city,Del Norte,North State,7643,95531,707
+Ojai,ojai,Ventura,Southern California,7637,93023,805
+Firebaugh,firebaugh,Fresno,Central Valley,7549,93622,559
+Fairfax,fairfax,Marin,Bay Area,7441,94930,415
+Sebastopol,sebastopol,Sonoma,Bay Area,7379,95472,707
+Rio Vista,rio-vista,Solano,Bay Area,7360,94571,707
+Orland,orland,Glenn,North State,7291,95963,530
+Woodlake,woodlake,Tulare,Central Valley,7279,93286,559
+Fort Bragg,fort-bragg,Mendocino,North State,7273,95437,707
+Cotati,cotati,Sonoma,Bay Area,7265,94931,707
+Escalon,escalon,San Joaquin,Central Valley,7132,95320,209
+Guadalupe,guadalupe,Santa Barbara,Southern California,7080,93434,805
+Sausalito,sausalito,Marin,Bay Area,7061,94965,415
+Atherton,atherton,San Mateo,Bay Area,6914,94027,650
+Huron,huron,Fresno,Central Valley,6754,93234,559
+Hughson,hughson,Stanislaus,Central Valley,6640,95326,209
+Winters,winters,Yolo,Sacramento Region,6624,95694,530
+Gridley,gridley,Butte,North State,6584,95948,530
+Loomis,loomis,Placer,Sacramento Region,6430,95650,916
+Willows,willows,Glenn,North State,6166,95988,530
+Colusa,colusa,Colusa,North State,5971,95932,530
+Holtville,holtville,Imperial,Southern California,5939,92250,760
+St. Helena,st-helena,Napa,Bay Area,5814,94574,707
+Villa Park,villa-park,Orange,Southern California,5812,92861,714
+Fowler,fowler,Fresno,Central Valley,5570,93625,559
+Gustine,gustine,Merced,Central Valley,5520,95322,209
+La Habra Heights,la-habra-heights,Los Angeles,Southern California,5325,90631,562
+Woodside,woodside,San Mateo,Bay Area,5287,94062,650
+Solvang,solvang,Santa Barbara,Southern California,5245,93463,805
+Calistoga,calistoga,Napa,Bay Area,5155,94515,707
+Williams,williams,Colusa,North State,5123,95987,530
+Big Bear Lake,big-bear-lake,San Bernardino,Southern California,5019,92315,909
+Willits,willits,Mendocino,North State,4988,95490,707
+Indian Wells,indian-wells,Riverside,Southern California,4958,92210,951
+Dos Palos,dos-palos,Merced,Central Valley,4950,93620,209
+Sonora,sonora-city,Tuolumne,Gold Country,4903,95370,209
+Needles,needles,San Bernardino,Southern California,4844,92363,909
+Buellton,buellton,Santa Barbara,Southern California,4828,93427,805
+Lakeport,lakeport,Lake,North State,4753,95453,707
+Jackson,jackson,Amador,Gold Country,4651,95642,209
+Portola Valley,portola-valley,San Mateo,Bay Area,4353,94028,650
+Brisbane,brisbane,San Mateo,Bay Area,4282,94005,650
+Del Mar,del-mar,San Diego,Southern California,4075,92014,619
+San Joaquin,san-joaquin,Fresno,Central Valley,4001,93660,559
+Angels Camp,angels-camp,Calaveras,Gold Country,3836,95222,209
+Bishop,bishop,Inyo,Eastern Sierra,3819,93514,760
+Avalon,avalon,Los Angeles,Southern California,3728,90704,213
+Carmel-by-the-Sea,carmel-by-the-sea,Monterey,Central Coast,3722,93921,831
+Wheatland,wheatland,Yuba,Sacramento Region,3456,95692,530
+Mount Shasta,mount-shasta,Siskiyou,North State,3394,96067,530
+Rio Dell,rio-dell,Humboldt,North State,3363,95562,707
+Monte Sereno,monte-sereno,Santa Clara,Bay Area,3341,95030,408
+Nevada City,nevada-city,Nevada,Gold Country,3068,95959,530
+Yountville,yountville,Napa,Bay Area,2933,94599,707
+Alturas,alturas,Modoc,North State,2827,96101,530
+Sutter Creek,sutter-creek,Amador,Gold Country,2501,95685,209
+Ross,ross,Marin,Bay Area,2415,94957,415
+Westmorland,westmorland,Imperial,Southern California,2267,92281,760
+Portola,portola,Plumas,North State,2104,96122,530
+Belvedere,belvedere,Marin,Bay Area,2068,94920,415
+Colfax,colfax,Placer,Sacramento Region,1963,95713,916
+Rolling Hills,rolling-hills,Los Angeles,Southern California,1860,90274,310
+Hidden Hills,hidden-hills,Los Angeles,Southern California,1856,91302,818
+Colma,colma,San Mateo,Bay Area,1792,94014,650
+Biggs,biggs,Butte,North State,1707,95917,530
+Dunsmuir,dunsmuir,Siskiyou,North State,1650,96025,530
+Del Rey Oaks,del-rey-oaks,Monterey,Central Coast,1624,93940,831
+Irwindale,irwindale,Los Angeles,Southern California,1422,91706,626
+Ferndale,ferndale,Humboldt,North State,1371,95536,707
+Blue Lake,blue-lake,Humboldt,North State,1253,95525,707
+Maricopa,maricopa,Kern,Central Valley,1154,93252,661
+Bradbury,bradbury,Los Angeles,Southern California,1048,91008,626
+Plymouth,plymouth,Amador,Gold Country,1005,95669,209
+Dorris,dorris,Siskiyou,North State,939,96023,530
+Isleton,isleton,Sacramento,Sacramento Region,804,95641,916
+Industry,industry,Los Angeles,Southern California,777,91744,626
+Loyalton,loyalton,Sierra,North State,769,96118,530
+Point Arena,point-arena,Mendocino,North State,449,95468,707
+Tehama,tehama,Tehama,North State,418,96090,530
+Trinidad,trinidad,Humboldt,North State,367,95570,707
+Sand City,sand-city,Monterey,Central Coast,334,93955,831
+Bieber,bieber,Lassen,North State,312,96009,530
+Amador City,amador-city,Amador,Gold Country,185,95601,209
+Vernon,vernon,Los Angeles,Southern California,112,90058,323

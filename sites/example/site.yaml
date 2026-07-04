@@ -1,0 +1,72 @@
+# Example site config — copy this directory to sites/<your-site-id>/ and edit.
+# Full annotated schema: see README.md and the geo-skills `token-max-factory`
+# skill (references/site-config.md). Unknown top-level keys are REJECTED.
+
+site_id: example                       # must match the directory name
+domain: example.com
+canonical_host: https://www.example.com
+target_repo_root: .                    # used by install + scan only; runs use cwd
+
+# --- output ---
+page_format: markdown                  # markdown | html | nextjs_content
+output_template: "content/{entity}/{topic_file_key}.md"
+route_template: "/{entity}/{topic_route_segment}"
+locales: [en]
+batch_kind: example-token-max          # ledger identity; keep stable across runs
+
+provider: codex                        # claude requires install --allow-claude
+model_reasoning_effort: xhigh
+artifacts_dir: .token-max-artifacts/example/pilot
+
+inventory:
+  entities:                            # WHO the pages are about (cities, products...)
+    adapter: static_list               # csv/json with name,slug + free columns
+    path: sites/example/facts/ca-cities.csv   # 472 California cities included as a starter dataset
+  topics:                              # WHAT each page covers — topics x entities = the page matrix
+    - key: my-service
+      aliases: [service]
+      file_key: my-service
+      route_segment: my-service
+      label: my service
+      title_label: My Service
+      intent: who this page serves and why they landed on it
+      primary_decision: the one decision the page enables the reader to make
+      must_answer:
+        - what does this service cost in this city
+        - how long does it take
+        - what should I prepare before I call
+  pilot_entities: [los-angeles, san-diego]   # ordered first; rest sort by population desc
+  crawl: { max_pages: 200, delay_seconds: 1.0, timeout_seconds: 15 }
+
+phases:                                # named presets — the run-input vocabulary
+  pilot: { topics: "my-service", entities: pilot, limit: 10 }
+  core:  { aliases: [phase2], topics: "my-service", entities: all, limit: 500 }
+default_phase: pilot
+
+frontmatter:
+  title_template: "{topic_title_label} in {entity_name} | Example"
+  description_template: "{entity_name} {topic_label}: costs, timelines, and how to prepare."
+  published: ""
+  updated: ""
+
+prompt_profile: local-service-seo      # prompts/profiles/<name>.md
+claim_rules_md: |
+  - Never invent prices, statistics, office locations, or local events.
+  - Only facts from the packet may appear as facts on the page.
+
+authority_sources: []
+
+# quality: {}                          # omitted = the proven defaults (2,800-3,400 words,
+                                       # overlap <= 0.10, >= 8 H2, >= 5 FAQ, ratio >= 0.15)
+
+prohibited_patterns:
+  fake_guarantee: 'guarantee[ds]?\s+(outcome|result|ranking)'
+
+cross_corpus_roots: [content]          # anti-rhyme corpora in the target repo
+cross_corpus_glob: "**/*.md"
+
+live_mutation:                         # preflight asserts ALL false — do not touch
+  allow_deploy: false
+  allow_dns: false
+  allow_gsc: false
+  allow_indexing: false

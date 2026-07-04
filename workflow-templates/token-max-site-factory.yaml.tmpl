@@ -1,0 +1,170 @@
+name: {{WORKFLOW_NAME}}
+description: |
+  Token-max page factory for {{SITE_ID}} ({{DOMAIN}}), installed from the
+  token-max-site-factory package at {{FACTORY_ROOT}}.
+  Local-only: generates and validates pages in the worktree. No deploy, DNS,
+  GSC, sitemap submission, indexing request, or live account mutation.
+  Run input is BAKED at install time (Archon 0.5.0 bash nodes do not deliver
+  USER_MESSAGE — regression, fixed on their dev branch). Current baked input:
+  "{{RUN_INPUT}}". To change it, re-run the factory install with
+  --run-input "<new input>" (examples: "pilot-10", "phase2-core-tranche-300",
+  "--topics a,b --entities x,y --limit 20").
+  NOTE: node scripts are 100% dollar-free on purpose — Archon 0.5.0 blanks
+  EVERY $NAME token in inline scripts (even self-assigned ones). On-disk
+  scripts (engine/tmsf.sh) are not preprocessed. The if/else picks the path
+  form the node's bash (Git Bash vs WSL) can see.
+provider: {{PROVIDER}}
+modelReasoningEffort: {{REASONING}}
+interactive: false
+
+nodes:
+  - id: bootstrap
+    timeout: 120000
+    bash: |
+      set -e
+      mkdir -p "{{ARTIFACTS_DIR}}/context" "{{ARTIFACTS_DIR}}/reports" "{{ARTIFACTS_DIR}}/state"
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" bootstrap --site {{SITE_ID}} --input "{{RUN_INPUT}}"
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" bootstrap --site {{SITE_ID}} --input "{{RUN_INPUT}}"
+      fi
+      echo "<promise>TMSF_BOOTSTRAPPED</promise>"
+
+  - id: no-live-mutation-preflight
+    depends_on: [bootstrap]
+    timeout: 120000
+    bash: |
+      set -e
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" preflight --site {{SITE_ID}} --no-live-mutation
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" preflight --site {{SITE_ID}} --no-live-mutation
+      fi
+      echo "<promise>NO_LIVE_MUTATION_COMMANDS</promise>"
+
+  - id: prepare-batch
+    depends_on: [no-live-mutation-preflight]
+    timeout: 600000
+    bash: |
+      set -e
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" prepare-from-input --site {{SITE_ID}} --resume --resume-existing-outputs
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" remaining --site {{SITE_ID}} --statuses "pending_generation,held_back"
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" prepare-from-input --site {{SITE_ID}} --resume --resume-existing-outputs
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" remaining --site {{SITE_ID}} --statuses "pending_generation,held_back"
+      fi
+      echo "<promise>TMSF_BATCH_READY</promise>"
+
+  - id: generate-content
+    depends_on: [prepare-batch]
+    idle_timeout: 1800000
+    loop:
+      prompt: |
+        Work only inside the current repo worktree and {{ARTIFACTS_DIR}}.
+
+        Factory command pattern (try the first path; if your shell cannot see
+        it, use the second — do not use shell variables):
+          bash "{{FACTORY_ROOT}}/engine/tmsf.sh" <subcommand> <flags>
+          bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" <subcommand> <flags>
+
+        Run the factory subcommand:
+          next-page --site {{SITE_ID}} --statuses pending_generation --output "{{ARTIFACTS_DIR}}/context/page-packet.json"
+
+        If {{ARTIFACTS_DIR}}/context/page-packet.json has "complete": true,
+        output ALL_PAGES_GENERATED and stop.
+
+        Otherwise:
+        1. Read {{ARTIFACTS_DIR}}/context/page-packet.json.
+        2. Read {{ARTIFACTS_DIR}}/context/writer-prompt.md and follow it exactly.
+           The packet JSON is the only page-specific fact source. Hard minimum
+           is {{HARD_MIN_WORDS}} words.
+        3. Write exactly ONE markdown file at the packet's `staging` path if
+           present, otherwise at the packet's `output` path. Do not edit any
+           other generated page.
+        4. Self-check against the writer prompt gates, then run the factory
+           subcommand:
+           mark-generated --site {{SITE_ID}} --page-id <packet.page_id>
+        5. Output TOKEN_MAX_PAGE_GENERATED=<packet.page_id>.
+      until: ALL_PAGES_GENERATED
+      max_iterations: {{MAX_ITERATIONS}}
+      fresh_context: true
+      until_bash: |
+        if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+          bash "{{FACTORY_ROOT}}/engine/tmsf.sh" remaining --site {{SITE_ID}} --statuses pending_generation --exit-zero-when-done
+        else
+          bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" remaining --site {{SITE_ID}} --statuses pending_generation --exit-zero-when-done
+        fi
+
+  - id: validate-regenerate-gate
+    depends_on: [generate-content]
+    idle_timeout: 1800000
+    loop:
+      prompt: |
+        Factory command pattern (try the first path; if your shell cannot see
+        it, use the second — do not use shell variables):
+          bash "{{FACTORY_ROOT}}/engine/tmsf.sh" <subcommand> <flags>
+          bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" <subcommand> <flags>
+
+        Run the factory subcommand:
+          validate --site {{SITE_ID}} --mark-held-back --no-fail
+
+        If the printed report shows "ok": true, output VALIDATION_DONE and stop.
+
+        Otherwise:
+        1. Run the factory subcommand:
+           next-page --site {{SITE_ID}} --statuses held_back --output "{{ARTIFACTS_DIR}}/context/page-packet.json"
+        2. If that packet has "complete": true, output VALIDATION_DONE (retry
+           budget exhausted; the hard gate will decide).
+        3. Otherwise rewrite exactly that one page FROM SCRATCH following
+           {{ARTIFACTS_DIR}}/context/writer-prompt.md and the packet's
+           regenerate_with hint, then run the factory subcommand:
+           mark-generated --site {{SITE_ID}} --page-id <packet.page_id> --status regenerated
+        4. Output TOKEN_MAX_PAGE_REGENERATED=<packet.page_id>.
+      until: VALIDATION_DONE
+      max_iterations: {{MAX_ITERATIONS}}
+      fresh_context: true
+      until_bash: |
+        if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+          bash "{{FACTORY_ROOT}}/engine/tmsf.sh" validation-ok --site {{SITE_ID}}
+        else
+          bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" validation-ok --site {{SITE_ID}}
+        fi
+
+  - id: enforce-validation-gate
+    depends_on: [validate-regenerate-gate]
+    timeout: 1800000
+    bash: |
+      set -e
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" validate --site {{SITE_ID}}
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" validate --site {{SITE_ID}}
+      fi
+      echo "<promise>TMSF_VALIDATION_OK</promise>"
+
+  - id: emit
+    depends_on: [enforce-validation-gate]
+    timeout: 1800000
+    bash: |
+      set -e
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" emit --site {{SITE_ID}}
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" emit --site {{SITE_ID}}
+      fi
+      {{BUILD_VERIFY_COMMAND}}
+      echo "<promise>TMSF_EMITTED</promise>"
+
+  - id: report
+    depends_on: [emit]
+    trigger_rule: all_done
+    timeout: 600000
+    bash: |
+      set -e
+      if [ -e "{{FACTORY_ROOT}}/engine/tmsf.sh" ]; then
+        bash "{{FACTORY_ROOT}}/engine/tmsf.sh" report --site {{SITE_ID}}
+      else
+        bash "{{FACTORY_ROOT_WSL}}/engine/tmsf.sh" report --site {{SITE_ID}}
+      fi
+      echo "<promise>TMSF_REPORT_DONE</promise>"
