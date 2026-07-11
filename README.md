@@ -16,7 +16,12 @@ a clean validation report; shipping is a separate, human-approved lane. A
 preflight node greps the engine for live-mutation command patterns on every
 run and refuses to proceed if any appear.
 
-Companion skill (operating manual): [`token-max-factory` in the geo-skills pack](https://github.com/TheSmokeDev/geo-skills).
+Companion skills in the [geo-skills pack](https://github.com/TheSmokeDev/geo-skills):
+
+- `token-max-factory` operates one scan/generation/validation lane.
+- `tokenmax-fleet-orchestrator` sequences many sites through consumer-owned
+  build, deploy, live-proof, and indexing-queue adapters with resumable state
+  and production freeze gates.
 
 ## Why this exists
 
