@@ -200,6 +200,8 @@ def validate_batch(
                 page["regenerate_with"] = validation_hint(page_failures[pid], prohibited_names)
                 page["validation_checked_at"] = now_iso()
             elif page.get("status") in {"generated", "regenerated", "held_back"}:
+                if page.get("status") == "held_back":
+                    page["status"] = "regenerated" if int(page.get("retry_count") or 0) else "generated"
                 page["validation_failures"] = []
                 page["regenerate_with"] = ""
                 page["validation_passed_at"] = now_iso()

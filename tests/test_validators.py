@@ -123,6 +123,39 @@ def test_missing_file_and_mark_held_back(site_cfg, tmp_path, monkeypatch):
     assert updated["pages"][0]["validation_failures"][0]["algo"] == "missing_file"
 
 
+def test_mark_held_back_restores_a_stale_status_after_the_page_passes(site_cfg, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    output = tmp_path / "content/page.md"
+    output.parent.mkdir(parents=True)
+    output.write_text(make_page(words=80), encoding="utf-8")
+    batch_path = tmp_path / "batch.json"
+    batch_path.write_text(
+        json.dumps(
+            {
+                "kind": "test",
+                "dry_run": False,
+                "pages": [
+                    {
+                        "id": "page",
+                        "status": "held_back",
+                        "output": "content/page.md",
+                        "route": "/page",
+                        "retry_count": 0,
+                        "validation_failures": [{"algo": "old_failure"}],
+                    }
+                ],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    validate_batch(site_cfg, batch_path, tmp_path / "v.json", **{**GATES, "mark_held_back": True})
+
+    updated = json.loads(batch_path.read_text(encoding="utf-8"))
+    assert updated["pages"][0]["status"] == "generated"
+    assert updated["pages"][0]["validation_failures"] == []
+
+
 def test_faq_count_fallback_without_faq_h2():
     doc = "# T\n\n## A\n\n### Is this a question?\n\ntext\n\n### Not a question\n"
     assert faq_question_count(doc) == 1
