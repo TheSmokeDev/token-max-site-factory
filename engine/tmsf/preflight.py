@@ -3,8 +3,9 @@
 1. Asserts every live_mutation flag in the site config is false.
 2. Greps the factory engine source for live-mutation command patterns
    (port of the sr22 workflow's grep-guard node).
-3. Verifies the target repo's .token-max/site.json marker matches --site,
-   so the wrong config can never be pointed at the wrong repo.
+3. Verifies the target repo's .token-max/sites/<id>.json marker matches
+   --site, so the wrong config can never be pointed at the wrong repo. The
+   legacy .token-max/site.json path remains a read-only fallback.
 """
 
 from __future__ import annotations
@@ -42,7 +43,12 @@ def grep_engine_sources() -> list[str]:
 
 
 def check_marker(site_id: str) -> list[str]:
-    marker = target_root() / ".token-max" / "site.json"
+    marker_root = target_root() / ".token-max"
+    marker = marker_root / "sites" / f"{site_id}.json"
+    if not marker.exists():
+        legacy = marker_root / "site.json"
+        if legacy.exists():
+            marker = legacy
     if not marker.exists():
         return [f"missing marker {marker} — run the factory 'install --site {site_id}' first"]
     try:

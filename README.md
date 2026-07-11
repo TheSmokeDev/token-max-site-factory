@@ -100,6 +100,9 @@ A starter entity dataset ships in the example site: 472 California cities
   check) → validate/regenerate loop → hard gate → emit → report.
 - `sites/<site_id>/site.yaml` — one config per target site; `inventory.json`
   is the cached scan; `facts/` holds entity CSVs.
+- `.token-max/sites/<site_id>.json` — per-site target marker, allowing one
+  monorepo to host multiple factory lanes without marker collisions. Legacy
+  `.token-max/site.json` markers remain readable.
 - `marketplace/` — the Archon marketplace package
   (`archon workflow install token-max-site-factory`).
 

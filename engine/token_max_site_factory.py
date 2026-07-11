@@ -240,7 +240,7 @@ def main() -> None:
 
     p = add("preflight", cmd_preflight)
     p.add_argument("--no-live-mutation", action="store_true", help="(implied; kept for workflow readability)")
-    p.add_argument("--no-marker", action="store_true", help="skip the .token-max/site.json marker check")
+    p.add_argument("--no-marker", action="store_true", help="skip the .token-max/sites/<id>.json marker check")
 
     p = add("prepare", cmd_prepare)
     p.add_argument("--products", default=None)

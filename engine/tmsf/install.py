@@ -2,7 +2,7 @@
 
 `new-site` writes an annotated sites/<id>/site.yaml starter.
 `install` stamps the thin workflow shim into the TARGET repo's
-.archon/workflows/, writes the .token-max/site.json marker, and gitignores
+.archon/workflows/, writes a .token-max/sites/<id>.json marker, and gitignores
 the artifacts dir — after which `archon workflow run` from the target repo is
 the whole point-and-shoot story."""
 
@@ -123,19 +123,20 @@ def install_site(site_id: str, *, workflow_name: str = "", allow_claude: bool = 
     workflow_path = workflows_dir / f"{name}.yaml"
     workflow_path.write_text(rendered, encoding="utf-8")
 
-    marker_dir = target / ".token-max"
-    marker_dir.mkdir(exist_ok=True)
+    marker_dir = target / ".token-max" / "sites"
+    marker_dir.mkdir(parents=True, exist_ok=True)
     marker = {
         "site_id": site_id,
         "factory_root": factory_root,
         "workflow": name,
         "installed_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
     }
-    (marker_dir / "site.json").write_text(json.dumps(marker, indent=2) + "\n", encoding="utf-8")
+    marker_path = marker_dir / f"{site_id}.json"
+    marker_path.write_text(json.dumps(marker, indent=2) + "\n", encoding="utf-8")
 
     _ensure_gitignore(target, ".token-max-artifacts/")
     print(f"INSTALLED_WORKFLOW={workflow_path}")
-    print(f"MARKER={marker_dir / 'site.json'}")
+    print(f"MARKER={marker_path}")
     print(f"BAKED_RUN_INPUT={baked_input}")
     print(f"RUN: cd {target} && archon workflow run {name}")
 

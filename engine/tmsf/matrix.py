@@ -80,6 +80,10 @@ def build_pages(
 ) -> list[dict]:
     topics = topics_by_key(cfg)
     sources = page_sources(cfg)
+    locales = [str(locale).strip() for locale in cfg.get("locales") or ["en"] if str(locale).strip()]
+    if len(locales) != 1:
+        raise SystemExit("TokenMax page matrices currently require exactly one configured locale")
+    locale = locales[0]
     pages: list[dict] = []
     for slug in selected_slugs:
         entity = entities[slug]
@@ -91,12 +95,12 @@ def build_pages(
             if skip_routes and route in skip_routes:
                 continue
             page = {
-                "id": f"{slug}-{topic['file_key']}-en",
+                "id": f"{slug}-{topic['file_key']}-{locale}",
                 "city": slug,
                 "city_name": entity.get("name"),
                 "county": entity.get("county"),
                 "product": key,
-                "locale": "en",
+                "locale": locale,
                 "status": "pending_generation",
                 "output": page_output(cfg, slug, topic),
                 "route": route,
