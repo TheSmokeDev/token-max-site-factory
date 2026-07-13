@@ -18,6 +18,22 @@ def test_unknown_top_level_key_rejected(site_cfg):
         _validate(bad, "test")
 
 
+def test_intent_contract_accepted(site_cfg):
+    cfg = dict(site_cfg)
+    cfg["intent_contract"] = {
+        "primary_query": "military car insurance california",
+        "route_owner": "/en/military-auto-insurance",
+    }
+    _validate(cfg, "test")
+
+
+def test_intent_contract_must_be_mapping(site_cfg):
+    bad = dict(site_cfg)
+    bad["intent_contract"] = "military car insurance california"
+    with pytest.raises(SystemExit, match="intent_contract must be a mapping"):
+        _validate(bad, "test")
+
+
 def test_missing_topic_field_rejected(site_cfg):
     bad = dict(site_cfg)
     bad["inventory"] = {"topics": [{"key": "x"}]}

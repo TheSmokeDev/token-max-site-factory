@@ -75,6 +75,7 @@ ALLOWED_TOP_KEYS = {
     "live_mutation",
     "writer_contract",
     "comparison_corpus",
+    "intent_contract",
 }
 
 REQUIRED_TOP_KEYS = {
@@ -138,6 +139,8 @@ def _validate(cfg: dict, source: str) -> None:
             re.compile(str(value))
         except re.error as exc:
             raise ConfigError(f"prohibited_patterns.{name} is not a valid regex in {source}: {exc}")
+    if cfg.get("intent_contract") is not None and not isinstance(cfg["intent_contract"], dict):
+        raise ConfigError(f"intent_contract must be a mapping in {source}")
     if cfg.get("page_format") == "html" and not cfg.get("html_template"):
         raise ConfigError(f"page_format html requires html_template in {source}")
     if cfg.get("page_format") == "nextjs_content" and not cfg.get("staging_template"):
@@ -162,6 +165,7 @@ def _apply_defaults(cfg: dict) -> dict:
     cfg.setdefault("cross_corpus_glob", "**/*.md")
     cfg.setdefault("writer_contract", {})
     cfg.setdefault("comparison_corpus", {})
+    cfg.setdefault("intent_contract", {})
     cfg.setdefault("staging_template", "")
     cfg.setdefault("html_template", "")
     cfg.setdefault("build_verify_command", "")
