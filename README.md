@@ -1,6 +1,7 @@
 # token-max-site-factory
 
 [![CI](https://github.com/TheSmokeDev/token-max-site-factory/actions/workflows/ci.yml/badge.svg)](https://github.com/TheSmokeDev/token-max-site-factory/actions/workflows/ci.yml)
+[![Release](https://img.shields.io/github/v/release/TheSmokeDev/token-max-site-factory?include_prereleases&sort=semver)](https://github.com/TheSmokeDev/token-max-site-factory/releases/tag/v0.6.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-f06424.svg)](LICENSE)
 
 Universal, point-and-shoot [Archon](https://archon.diy) content factory. Point
@@ -78,6 +79,15 @@ collision control, provenance, and proof are.
 - Python 3.10+ with PyYAML.
 
 ## Point-and-shoot: onboarding a site
+
+Install the verified release wheel:
+
+```bash
+pip install https://github.com/TheSmokeDev/token-max-site-factory/releases/download/v0.6.0/token_max_site_factory-0.6.0-py3-none-any.whl
+tokenmax doctor --json
+```
+
+For development from a clone:
 
 ```bash
 git clone https://github.com/TheSmokeDev/token-max-site-factory
