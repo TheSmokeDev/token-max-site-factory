@@ -86,6 +86,45 @@ def test_faq_gate_disabled_with_zero(site_cfg, tmp_path, monkeypatch):
     assert "faq_questions" not in failures_for(report, "nofaq")
 
 
+def test_metadata_and_h1_gates(site_cfg, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    page = make_page(words=80, seed="metadata")
+    page = page.replace('description: "Description metadata"\n', "")
+    page = page.replace("# T metadata", "# A different H1")
+    report = run_validate(site_cfg, tmp_path, {"metadata": page})
+    assert "missing_description" in failures_for(report, "metadata")
+    assert "h1_title_mismatch" in failures_for(report, "metadata")
+
+
+def test_duplicate_title_and_description_gates(site_cfg, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    first = make_page(words=80, seed="first")
+    second = make_page(words=80, seed="second")
+    second = second.replace('title: "T second"', 'title: "T first"')
+    second = second.replace('description: "Description second"', 'description: "Description first"')
+    second = second.replace("# T second", "# T first")
+    report = run_validate(site_cfg, tmp_path, {"first": first, "second": second})
+    assert "duplicate_title" in failures_for(report, "first")
+    assert "duplicate_description" in failures_for(report, "second")
+
+
+def test_enterprise_pages_require_named_authority_source_link(site_cfg, tmp_path, monkeypatch):
+    monkeypatch.chdir(tmp_path)
+    source_url = "https://example.com/research"
+    site_cfg["program"]["scale"] = "enterprise"
+    site_cfg["authority_sources"] = [{"label": "Research", "url": source_url}]
+
+    missing = run_validate(site_cfg, tmp_path, {"missing": make_page(words=80, seed="missing-source")})
+    assert "source_links" in failures_for(missing, "missing")
+
+    present = run_validate(
+        site_cfg,
+        tmp_path,
+        {"present": make_page(words=80, seed="present-source", extra=f"[Research]({source_url})\n")},
+    )
+    assert "source_links" not in failures_for(present, "present")
+
+
 def test_pairwise_overlap_flags_near_duplicates(site_cfg, tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
     same = make_page(words=120, seed="same")

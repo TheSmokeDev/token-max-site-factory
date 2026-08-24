@@ -24,6 +24,7 @@ DEFAULT_QUALITY = {
     "min_h2": 8,
     "min_faq_questions": 5,
     "min_ai_citable_passages": 4,
+    "min_source_links": 0,
     "min_text_html_ratio": 0.15,
     "max_pairwise_overlap": 0.10,
     "max_cross_overlap": 0.10,
@@ -43,6 +44,19 @@ DEFAULT_LIVE_MUTATION = {
     "allow_gsc": False,
     "allow_indexing": False,
 }
+
+DEFAULT_PROGRAM = {
+    "scale": "starter",
+    "business_model": "local-service",
+    "audience": "",
+    "conversion_goal": "",
+    "evidence_owner": "",
+    "reviewers": [],
+    "success_metrics": [],
+}
+
+PROGRAM_SCALES = {"starter", "growth", "enterprise"}
+PROGRAM_KEYS = set(DEFAULT_PROGRAM)
 
 ALLOWED_TOP_KEYS = {
     "site_id",
@@ -76,6 +90,7 @@ ALLOWED_TOP_KEYS = {
     "writer_contract",
     "comparison_corpus",
     "intent_contract",
+    "program",
 }
 
 REQUIRED_TOP_KEYS = {
@@ -141,6 +156,64 @@ def _validate(cfg: dict, source: str) -> None:
             raise ConfigError(f"prohibited_patterns.{name} is not a valid regex in {source}: {exc}")
     if cfg.get("intent_contract") is not None and not isinstance(cfg["intent_contract"], dict):
         raise ConfigError(f"intent_contract must be a mapping in {source}")
+    if cfg.get("authority_sources") is not None and not isinstance(cfg["authority_sources"], list):
+        raise ConfigError(f"authority_sources must be a list in {source}")
+    program = cfg.get("program")
+    scale = "starter"
+    if program is not None:
+        if not isinstance(program, dict):
+            raise ConfigError(f"program must be a mapping in {source}")
+        unknown_program = set(program) - PROGRAM_KEYS
+        if unknown_program:
+            raise ConfigError(
+                f"unknown program key(s) in {source}: {', '.join(sorted(unknown_program))}"
+            )
+        scale = str(program.get("scale") or "starter")
+        if scale not in PROGRAM_SCALES:
+            raise ConfigError(
+                f"program.scale must be one of {', '.join(sorted(PROGRAM_SCALES))} in {source}"
+            )
+        for key in ("reviewers", "success_metrics"):
+            if key in program and not isinstance(program[key], list):
+                raise ConfigError(f"program.{key} must be a list in {source}")
+        if scale in {"growth", "enterprise"}:
+            intent = cfg.get("intent_contract") or {}
+            required_program = ("business_model", "audience", "conversion_goal", "evidence_owner")
+            missing_program = [key for key in required_program if not str(program.get(key) or "").strip()]
+            if missing_program:
+                raise ConfigError(
+                    f"program.scale {scale} requires program fields "
+                    f"{', '.join(missing_program)} in {source}"
+                )
+            missing_intent = [key for key in ("primary_query", "route_owner") if not str(intent.get(key) or "").strip()]
+            if missing_intent:
+                raise ConfigError(
+                    f"program.scale {scale} requires intent_contract fields "
+                    f"{', '.join(missing_intent)} in {source}"
+                )
+            if not program.get("success_metrics"):
+                raise ConfigError(f"program.scale {scale} requires program.success_metrics in {source}")
+            if any(not str(metric or "").strip() for metric in program.get("success_metrics") or []):
+                raise ConfigError(f"program.success_metrics cannot contain blank values in {source}")
+        if scale == "enterprise":
+            if not program.get("reviewers"):
+                raise ConfigError(f"program.scale enterprise requires program.reviewers in {source}")
+            authority_sources = cfg.get("authority_sources") or []
+            if not authority_sources:
+                raise ConfigError(f"program.scale enterprise requires authority_sources in {source}")
+            if any(
+                not isinstance(item, dict)
+                or not str(item.get("label") or "").strip()
+                or not str(item.get("url") or "").strip()
+                for item in authority_sources
+            ):
+                raise ConfigError(
+                    f"enterprise authority_sources require nonblank label and url fields in {source}"
+                )
+    if cfg.get("prompt_profile") == "multi-location-enterprise" and scale != "enterprise":
+        raise ConfigError(
+            f"prompt_profile multi-location-enterprise requires program.scale enterprise in {source}"
+        )
     if cfg.get("page_format") == "html" and not cfg.get("html_template"):
         raise ConfigError(f"page_format html requires html_template in {source}")
     if cfg.get("page_format") == "nextjs_content" and not cfg.get("staging_template"):
@@ -169,6 +242,12 @@ def _apply_defaults(cfg: dict) -> dict:
     cfg.setdefault("staging_template", "")
     cfg.setdefault("html_template", "")
     cfg.setdefault("build_verify_command", "")
+
+    program = dict(DEFAULT_PROGRAM)
+    program.update(cfg.get("program") or {})
+    program["reviewers"] = list(program.get("reviewers") or [])
+    program["success_metrics"] = list(program.get("success_metrics") or [])
+    cfg["program"] = program
 
     quality = dict(DEFAULT_QUALITY)
     quality.update(cfg.get("quality") or {})

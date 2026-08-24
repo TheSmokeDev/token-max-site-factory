@@ -11,6 +11,10 @@ Hard prohibitions:
 - Do not invent local offices, service areas, neighborhoods, staff, years in business, or availability claims.
 - Do not invent local statistics, court facts, agency procedures, or deadlines not present in the packet.
 - Do not use exact price claims without a packet source.
+- Do not imply a staffed office, storefront, or Google Business Profile in a city
+  when the packet proves only a service area.
+- Do not create another city/service page when `packet.intent_contract` assigns that
+  decision to an existing owner route.
 
 Allowed framing:
 
@@ -27,6 +31,8 @@ Include answer-first passages for:
 - how the local process typically flows (packet facts only),
 - what common mistakes cost people time or money,
 - how to evaluate providers or next steps without relying on hype claims.
+- what is genuinely local to the entity, using only packet facts rather than a city
+  name swapped into generic copy.
 
 ## Required Section Pattern
 
@@ -47,3 +53,4 @@ Profile self-check additions:
 - No guaranteed outcome language anywhere.
 - No professional-role claim about the site brand.
 - No invented local fact, case result, or review.
+- Local office, service-area, and owner-route language matches the packet exactly.

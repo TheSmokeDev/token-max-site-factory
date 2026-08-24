@@ -64,8 +64,8 @@ def make_page(words: int = 60, h2: int = 8, quotes: int = 4, faqs: int = 5, extr
     """Build a markdown page that passes gates at the given knobs (word target
     is scaled: tests use min_words=50 for speed)."""
     body = []
-    body.append("---\ntitle: T\n---\n")
-    body.append("# T\n")
+    body.append(f'---\ntitle: "T {seed}"\ndescription: "Description {seed}"\n---\n')
+    body.append(f"# T {seed}\n")
     per_section = max(1, words // max(1, h2))
     for i in range(h2):
         body.append(f"## Section {seed} {i}\n")
