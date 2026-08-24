@@ -21,10 +21,23 @@ domain: {site_id}.example.com
 canonical_host: https://{site_id}.example.com
 target_repo_root: {target_repo}
 
-page_format: markdown              # markdown | html (html needs html_template)
+page_format: markdown              # markdown | html | nextjs_content
 output_template: "content/{{entity}}/{{topic_file_key}}.md"   # target-repo-relative
 route_template: "/{{entity}}/{{topic_route_segment}}"
 artifacts_dir: .token-max-artifacts/{site_id}/pilot
+
+program:
+  scale: starter                  # starter | growth | enterprise
+  business_model: local-service
+  audience: describe the exact buyer
+  conversion_goal: describe the page's conversion job
+  evidence_owner: owner-operator
+  reviewers: [owner]
+  success_metrics: [qualified organic inquiries]
+
+intent_contract:
+  primary_query: example service
+  route_owner: /services/example-service
 
 inventory:
   entities:

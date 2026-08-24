@@ -18,6 +18,21 @@ provider: codex                        # claude requires install --allow-claude
 model_reasoning_effort: xhigh
 artifacts_dir: .token-max-artifacts/example/pilot
 
+# --- program governance ---
+program:
+  scale: starter                      # starter | growth | enterprise
+  business_model: local-service
+  audience: local buyers comparing qualified providers
+  conversion_goal: request a consultation
+  evidence_owner: owner-operator
+  reviewers: [owner]
+  success_metrics:
+    - qualified organic inquiries on approved owner routes
+
+intent_contract:
+  primary_query: my service in california
+  route_owner: /services/my-service
+
 inventory:
   entities:                            # WHO the pages are about (cities, products...)
     adapter: static_list               # csv/json with name,slug + free columns
@@ -56,7 +71,8 @@ claim_rules_md: |
 
 authority_sources: []
 
-# quality: {}                          # omitted = the proven defaults (2,800-3,400 words,
+# quality: {}                          # omitted = defaults (2,800-3,400 words,
+                                       # unique title/description + matching H1,
                                        # overlap <= 0.10, >= 8 H2, >= 5 FAQ, ratio >= 0.15)
 
 prohibited_patterns:

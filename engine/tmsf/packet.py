@@ -41,6 +41,8 @@ def page_prompt_packet(cfg: dict, page: dict, batch: dict, entities: dict[str, d
         "city": entity,
         "product": topic_key,
         "product_config": topic_packet_config(topic),
+        "program": cfg.get("program") or {},
+        "intent_contract": cfg.get("intent_contract") or {},
         "authority_sources": cfg.get("authority_sources") or [],
         "comparison_corpus": cfg.get("comparison_corpus") or {},
         "frontmatter": {
@@ -48,7 +50,7 @@ def page_prompt_packet(cfg: dict, page: dict, batch: dict, entities: dict[str, d
             "description": str(fm_cfg.get("description_template") or "").format(**vars),
             "city": entity.get("slug"),
             "product": topic_key,
-            "locale": "en",
+            "locale": page.get("locale") or (cfg.get("locales") or ["en"])[0],
             "published": batch.get("published") or fm_cfg.get("published") or "",
             "updated": batch.get("updated") or fm_cfg.get("updated") or "",
         },

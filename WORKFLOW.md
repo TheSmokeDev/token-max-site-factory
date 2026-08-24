@@ -23,6 +23,21 @@ SEO/GEO pages (city × service, product × topic — any entity × topic matrix)
 5. **Emit**: markdown passthrough, or deterministic HTML render into the
    site's own template (FAQPage/WebPage/Breadcrumb JSON-LD included).
 6. **Report**: page-by-page markdown report; explicit "Live mutations: none".
+   Also writes a JSON receipt with config/prompt/batch/validation/page hashes,
+   reviewer requirements, and explicit false deployment/indexing/ranking/citation
+   state.
+
+## Operating scale
+
+`site.yaml` is the control plane, not just a page-count file:
+
+- `program.scale: starter` keeps the original single-site/pilot contract.
+- `growth` requires audience, conversion goal, evidence owner, success metrics,
+  primary query, and canonical route owner.
+- `enterprise` additionally requires named reviewers and authority sources.
+
+See `docs/OPERATING-MODES.md` for profile selection, owner-intent mapping,
+community/Reddit boundaries, rollout gates, and the full release/measurement handoff.
 
 ## Install
 

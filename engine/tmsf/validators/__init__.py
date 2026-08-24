@@ -10,6 +10,7 @@ from collections import Counter
 from pathlib import Path
 
 from .. import target_root
+from ..emitters.html import parse_frontmatter
 from .overlap import corpus_text, cross_corpus_files, jaccard, shingles, strip_utility_sections
 from .prohibited import compile_patterns
 from .rendered_ratio import text_html_ratio
@@ -32,6 +33,17 @@ def validation_hint(failures: list[dict], prohibited_names: set[str]) -> str:
         return "reduce_markup_and_lists_expand_plain_text_paragraphs"
     if "faq_questions" in kinds:
         return "add_city_product_specific_faq_questions_40_90_words_each"
+    if kinds & {
+        "missing_title",
+        "missing_description",
+        "missing_h1",
+        "h1_title_mismatch",
+        "duplicate_title",
+        "duplicate_description",
+    }:
+        return "rewrite_unique_title_description_and_matching_h1"
+    if "source_links" in kinds:
+        return "add_named_packet_authority_source_links_or_remove_unsupported_claims"
     if kinds & prohibited_names:
         return "remove_prohibited_claims_and_replace_with_current_ca_guidance"
     return "fresh_context_full_rewrite_against_packet"
@@ -80,6 +92,7 @@ def validate_batch(
     page_failures: dict[str, list[dict]] = {}
     generated_texts: dict[str, str] = {}
     generated_paths: dict[str, Path] = {}
+    metadata_records: dict[str, tuple[str, str]] = {}
     page_by_id = {str(page["id"]): page for page in batch.get("pages", [])}
 
     for page in batch.get("pages", []):
@@ -92,6 +105,26 @@ def validate_batch(
             continue
         raw = path.read_text(encoding="utf-8")
         generated_texts[pid] = strip_utility_sections(raw, utility_patterns)
+        meta, body = parse_frontmatter(raw)
+        title = str(meta.get("title") or "").strip()
+        description = str(meta.get("description") or "").strip()
+        h1_match = re.search(r"^#\s+(.+?)\s*$", body, re.M)
+        h1 = h1_match.group(1).strip() if h1_match else ""
+        metadata_records[pid] = (title, description)
+        if not title:
+            page_failures.setdefault(pid, []).append(
+                {"algo": "missing_title", "message": "frontmatter title is missing"}
+            )
+        if not description:
+            page_failures.setdefault(pid, []).append(
+                {"algo": "missing_description", "message": "frontmatter description is missing"}
+            )
+        if not h1:
+            page_failures.setdefault(pid, []).append({"algo": "missing_h1", "message": "H1 is missing"})
+        elif title and h1.casefold() != title.casefold():
+            page_failures.setdefault(pid, []).append(
+                {"algo": "h1_title_mismatch", "message": f"H1 {h1!r} does not match title {title!r}"}
+            )
         words = word_count(raw)
         if words < min_words:
             page_failures.setdefault(pid, []).append(
@@ -121,6 +154,42 @@ def validate_batch(
         for name, pattern in prohibited.items():
             if pattern.search(raw):
                 page_failures.setdefault(pid, []).append({"algo": name, "message": f"{name} pattern matched"})
+
+        min_source_links = int(cfg.get("quality", {}).get("min_source_links") or 0)
+        if str((cfg.get("program") or {}).get("scale") or "starter") == "enterprise":
+            min_source_links = max(1, min_source_links)
+        authority_urls = [
+            str(source.get("url") or "")
+            for source in cfg.get("authority_sources") or []
+            if isinstance(source, dict) and source.get("url")
+        ]
+        source_link_count = sum(1 for url in authority_urls if url in raw)
+        if source_link_count < min_source_links:
+            page_failures.setdefault(pid, []).append(
+                {
+                    "algo": "source_links",
+                    "message": f"named authority source links {source_link_count} < {min_source_links}",
+                }
+            )
+
+    for field_index, algo in ((0, "duplicate_title"), (1, "duplicate_description")):
+        groups: dict[str, list[str]] = {}
+        for pid, values in metadata_records.items():
+            value = values[field_index].casefold().strip()
+            if value:
+                groups.setdefault(value, []).append(pid)
+        for duplicate_ids in groups.values():
+            if len(duplicate_ids) < 2:
+                continue
+            for pid in duplicate_ids:
+                others = [other for other in duplicate_ids if other != pid]
+                page_failures.setdefault(pid, []).append(
+                    {
+                        "algo": algo,
+                        "message": f"{algo} shared with {', '.join(others)}",
+                        "other_pages": others,
+                    }
+                )
 
     overlaps: list[dict] = []
     ids = list(generated_texts)

@@ -3,12 +3,13 @@
 Universal, point-and-shoot [Archon](https://archon.diy) content factory. Point
 it at any website: **scan** the existing site, build an inventory, then
 **expand** it into hundreds of token-max SEO/GEO pages — with quantified
-quality gates proven on a live production insurance lane (and validated by
-Google: ~100% index rate wherever the crawler actually read token-max content).
+quality gates extracted from a production insurance lane and preserved in a
+deterministic public test suite.
 
-> **Status: v0.5 beta.** Extracted from a production SR-22 insurance lane
-> (engine parity 15/15 against the original). The 300-page production proof
-> run is in flight; numbers land here when it completes. APIs may still move.
+> **Status: v0.6 beta.** The engine is usable and tested, but APIs may still
+> move. This repository proves generation contracts and local validation. It
+> does not publish private performance data or turn a local pass into a claim
+> about deployment, indexation, rankings, conversions, or AI citations.
 
 **The factory never deploys.** No DNS, no Search Console, no sitemap
 submission, no indexing requests, no live account mutation. Generation ends at
@@ -30,6 +31,21 @@ hallucinated "local facts" that poison trust. The factory attacks both with a
 hard quality contract and a packet system where **the packet is the only fact
 source** — the writer never invents a price, office, or statistic.
 
+## Starter to enterprise
+
+The same engine supports three governance modes through `program.scale`:
+
+| Scale | Intended use | Additional contract |
+|---|---|---|
+| `starter` | One operator, local business, focused product, first pilot | Owner intent, packet facts, bounded pilot, human review |
+| `growth` | Agency/client program or repeatable multi-service lane | Audience, conversion goal, evidence owner, success metrics, primary query, route owner |
+| `enterprise` | Multi-location, multi-brand, regulated, or multilingual program | All growth fields plus named reviewers and authority sources |
+
+Read [Operating Modes: Starter to Enterprise](docs/OPERATING-MODES.md) for the
+full evidence -> owner map -> gold page -> pilot -> gates -> reviewer -> canary ->
+measurement stack. More pages are not the enterprise feature. Governance,
+collision control, provenance, and proof are.
+
 ## Quality contract (per page, defaults)
 
 | Gate | Default |
@@ -38,8 +54,11 @@ source** — the writer never invents a price, office, or statistic.
 | Uniqueness | pairwise + cross-corpus shingle/Jaccard ≤ 0.10 (90%+ unique) |
 | Structure | ≥ 8 H2 sections, ≥ 4 AI-citable blockquotes, ≥ 5 FAQ questions |
 | Text-to-HTML | ≥ 0.15 |
-| Titles/meta | unique per page, templated from packet facts |
+| Titles/meta | present and unique per page; H1 must match title |
 | Facts | packet = the only fact source; prohibited-claim regexes per vertical |
+| Ownership | growth/enterprise require primary query + canonical route owner |
+| Governance | enterprise requires evidence owner, reviewers, metrics, sources, and a named source link per page |
+| Receipts | SHA-256 config/prompt/batch/validation/page manifest; public states default false |
 
 ## Prerequisites
 
@@ -111,6 +130,15 @@ A starter entity dataset ships in the example site: 472 California cities
 - `marketplace/` — the Archon marketplace package
   (`archon workflow install token-max-site-factory`).
 
+Shipped prompt profiles: `local-service-seo`, `multi-location-enterprise`,
+`saas-b2b`, `ecommerce-category`, and `regulated-insurance`. New verticals need
+their own profile and prohibited-claim policy.
+
+The report step writes a human report and a machine receipt. The receipt hashes the
+resolved config, materialized prompt, batch, validation, page sources, and emitted
+outputs, and explicitly records deployment/indexing/ranking/citation as false until a
+separate release or measurement lane proves them.
+
 ### HTML sites
 
 Set `page_format: html`, a `staging_template` (writer produces markdown
@@ -155,10 +183,11 @@ factory pages alone.
 
 ## Provenance
 
-Extracted and generalized from the programmatic lane behind a public GEO case
-study (an insurance comparison site out-referred by ChatGPT vs Google search).
-The port is parity-tested against the original engine: bootstrap, prepare,
-packet, and resume deep-equal the legacy lane, plus validator field parity.
+Extracted and generalized from a production insurance programmatic-content lane.
+The public repository carries the reusable engine, tests, policies, and receipts;
+it intentionally does not publish stale or private traffic/citation claims. The port
+was parity-tested against the original bootstrap, prepare, packet, resume, and
+validator contracts before the current portable layers were added.
 
 ## License
 

@@ -20,7 +20,7 @@ title: "<packet.frontmatter.title>"
 description: "<packet.frontmatter.description>"
 city: "<packet.frontmatter.city>"
 product: "<packet.frontmatter.product>"
-locale: "en"
+locale: "<packet.frontmatter.locale>"
 published: "<packet.frontmatter.published>"
 updated: "<packet.frontmatter.updated>"
 ---
@@ -44,6 +44,9 @@ updated: "<packet.frontmatter.updated>"
 
 ## SEO And GEO Requirements
 
+- Read `packet.program` and `packet.intent_contract` before writing. The page must
+  serve their audience, conversion goal, primary query, and canonical route owner.
+  Do not broaden into an intent owned by another route.
 - First body paragraph must answer the page intent directly in 45 to 80 words.
 - The page must be useful as raw HTML text. Do not hide the answer in UI-only copy.
 - Use the packet's entity and topic names naturally in headings and body text.
@@ -51,6 +54,10 @@ updated: "<packet.frontmatter.updated>"
 - Use self-contained sentences that AI systems can quote without needing the rest of the article.
 - Write FAQ answers as 40 to 90 word standalone citations.
 - Prefer specific phrasing from the packet over generic filler.
+- Attribute numeric or regulated claims to a named entry in
+  `packet.authority_sources`. If the packet has no supporting source, omit the claim.
+- Treat community discussions as question and vocabulary signals only. They are not
+  authority for factual claims and must not be presented as consensus.
 
 ## Generic Hard Prohibitions
 
@@ -70,3 +77,5 @@ updated: "<packet.frontmatter.updated>"
 - At least {{MIN_QUOTES}} blockquotes.
 - At least {{MIN_FAQ}} FAQ question headings.
 - Every profile rule below satisfied.
+- Program audience, conversion goal, route owner, evidence policy, locale, and review
+  requirements are satisfied.
