@@ -1,10 +1,16 @@
 # token-max-site-factory
 
+[![CI](https://github.com/TheSmokeDev/token-max-site-factory/actions/workflows/ci.yml/badge.svg)](https://github.com/TheSmokeDev/token-max-site-factory/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-f06424.svg)](LICENSE)
+
 Universal, point-and-shoot [Archon](https://archon.diy) content factory. Point
 it at any website: **scan** the existing site, build an inventory, then
 **expand** it into hundreds of token-max SEO/GEO pages — with quantified
 quality gates extracted from a production insurance lane and preserved in a
 deterministic public test suite.
+
+> If these gates save you from shipping thin or fabricated programmatic pages,
+> star the repo so other builders can find the factory.
 
 > **Status: v0.6 beta.** The engine is usable and tested, but APIs may still
 > move. This repository proves generation contracts and local validation. It
@@ -76,20 +82,28 @@ collision control, provenance, and proof are.
 ```bash
 git clone https://github.com/TheSmokeDev/token-max-site-factory
 cd token-max-site-factory
+python -m pip install -e ".[dev]"
+
+# Verify the command surface and configured sites
+tokenmax doctor --json
+tokenmax list-sites --json
+
+# Validate the GEO research handoff before generation
+tokenmax owner-map --input owner-intent-map.json --json
 
 # 1. Scaffold a config
-python engine/token_max_site_factory.py new-site --site mysite --target-repo /path/to/site-repo
+tokenmax new-site --site mysite --target-repo /path/to/site-repo
 
 # 2. Scan the live site (sitemap + polite crawl) and the local repo — the ONLY
 #    network step, always manual:
-python engine/token_max_site_factory.py scan --site mysite --allow-network
+tokenmax scan --site mysite --allow-network
 
 # 3. Edit sites/mysite/site.yaml: topics (the page matrix), entities source
 #    (CSV/JSON/TS), output/route templates, prompt profile, claim rules,
 #    cross-corpus roots, phases. Start from sites/example/site.yaml.
 
 # 4. Install the workflow shim into the target repo
-python engine/token_max_site_factory.py install --site mysite --run-input "pilot-10"
+tokenmax install --site mysite --run-input "pilot-10"
 
 # 5. Run — always FROM the target repo (worktree isolation keys off it)
 cd /path/to/site-repo
@@ -98,6 +112,14 @@ archon workflow run token-max-site-factory-mysite --no-worktree
 # 6. Review the worktree diff + the report at <artifacts>/reports/batch-report.md
 #    Merge, then deploy through YOUR normal lane. The factory is done.
 ```
+
+The legacy `python engine/token_max_site_factory.py ...` form remains supported for
+existing workflows.
+
+The packaged command surface follows the agent-native principles demonstrated by
+[CLI-Anything](https://github.com/HKUDS/CLI-Anything): self-describing help,
+machine-readable diagnostics, installed-command tests, and authentic backend
+integration. TokenMax keeps its own fail-closed state and approval contracts.
 
 Pilot before tranche, always: prove 10–25 pages pass every gate before
 scaling. Keep tranches ≤ 300 pages (pairwise overlap is O(n²)).
@@ -192,3 +214,5 @@ validator contracts before the current portable layers were added.
 ## License
 
 MIT — built by [SmokeDev](https://github.com/TheSmokeDev).
+If the factory supports published work, use GitHub's **Cite this repository** control
+backed by [CITATION.cff](CITATION.cff).

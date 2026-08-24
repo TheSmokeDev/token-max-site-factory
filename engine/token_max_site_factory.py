@@ -16,12 +16,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-from tmsf import __version__, factory_path  # noqa: E402
+from tmsf import FACTORY_ROOT, __version__, factory_path, workspace_root  # noqa: E402
 from tmsf import batch as batch_mod  # noqa: E402
 from tmsf.config import load_effective_config, load_site_config  # noqa: E402
 from tmsf.emitters import emit as emit_mod  # noqa: E402
 from tmsf.materialize import materialize  # noqa: E402
-from tmsf.preflight import run_preflight  # noqa: E402
+from tmsf.owner_map import load_and_validate as load_and_validate_owner_map  # noqa: E402
+from tmsf.preflight import grep_engine_sources, run_preflight  # noqa: E402
 from tmsf.report import write_report  # noqa: E402
 from tmsf.validators import validate_batch  # noqa: E402
 
@@ -223,9 +224,65 @@ def cmd_diff_live_preview(args: argparse.Namespace) -> None:
     raise SystemExit("diff-live-preview is not implemented in v1 (needs rendered-DOM tooling).")
 
 
+def _emit(payload: dict, args: argparse.Namespace, lines: list[str]) -> None:
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2, default=str))
+    else:
+        print("\n".join(lines))
+
+
+def cmd_doctor(args: argparse.Namespace) -> int:
+    profiles = sorted(path.stem for path in (FACTORY_ROOT / "prompts" / "profiles").glob("*.md"))
+    workflows = sorted(path.name for path in (FACTORY_ROOT / "workflow-templates").glob("*"))
+    sites_root = factory_path("sites")
+    sites = sorted(path.name for path in sites_root.iterdir() if path.is_dir() and (path / "site.yaml").exists()) if sites_root.exists() else []
+    mutation_problems = grep_engine_sources()
+    payload = {
+        "ok": not mutation_problems and sys.version_info >= (3, 10),
+        "version": __version__,
+        "python": sys.version.split()[0],
+        "factory_root": str(FACTORY_ROOT),
+        "workspace_root": str(workspace_root()),
+        "profiles": profiles,
+        "workflow_templates": workflows,
+        "sites": sites,
+        "live_mutation_problems": mutation_problems,
+        "external_mutations": "none",
+    }
+    lines = [
+        f"tokenmax {__version__}",
+        f"factory root: {FACTORY_ROOT}",
+        f"workspace root: {workspace_root()}",
+        f"profiles: {len(profiles)} | sites: {len(sites)}",
+        f"safety: {'PASS' if payload['ok'] else 'FAIL'}",
+        "external mutations: none",
+    ]
+    _emit(payload, args, lines)
+    return 0 if payload["ok"] else 1
+
+
+def cmd_list_sites(args: argparse.Namespace) -> int:
+    sites_root = factory_path("sites")
+    sites = sorted(path.name for path in sites_root.iterdir() if path.is_dir() and (path / "site.yaml").exists()) if sites_root.exists() else []
+    payload = {"count": len(sites), "workspace_root": str(workspace_root()), "sites": sites}
+    _emit(payload, args, [f"{site}" for site in sites] or ["No configured sites."])
+    return 0
+
+
+def cmd_owner_map_validate(args: argparse.Namespace) -> int:
+    path = Path(args.input).expanduser().resolve()
+    payload, errors = load_and_validate_owner_map(path)
+    result = {"ok": not errors, "path": str(path), "errors": errors, "owner_count": len((payload or {}).get("owners", []))}
+    lines = [f"owner map: {'PASS' if result['ok'] else 'FAIL'}", f"path: {path}", f"owners: {result['owner_count']}"]
+    lines.extend(f"ERROR: {error}" for error in errors)
+    _emit(result, args, lines)
+    return 0 if result["ok"] else 1
+
+
 def main() -> None:
-    parser = argparse.ArgumentParser(prog="token_max_site_factory", description=__doc__)
+    parser = argparse.ArgumentParser(prog="tokenmax", description=__doc__)
     parser.add_argument("--version", action="version", version=f"token-max-site-factory {__version__}")
+    parser.add_argument("--json", action="store_true", help="emit machine-readable JSON where supported")
     sub = parser.add_subparsers(dest="cmd", required=True)
 
     def add(name, func, **kwargs):
@@ -233,6 +290,17 @@ def main() -> None:
         p.add_argument("--site", required=True, help="site id under sites/")
         p.set_defaults(func=func)
         return p
+
+    def add_global(name, func, **kwargs):
+        p = sub.add_parser(name, **kwargs)
+        p.add_argument("--json", action="store_true", default=argparse.SUPPRESS)
+        p.set_defaults(func=func)
+        return p
+
+    add_global("doctor", cmd_doctor, help="verify package resources, safety, profiles, and configured sites")
+    add_global("list-sites", cmd_list_sites, help="list configured TokenMax sites")
+    p = add_global("owner-map", cmd_owner_map_validate, help="validate a GEO owner-intent JSON handoff")
+    p.add_argument("--input", required=True)
 
     p = add("bootstrap", cmd_bootstrap)
     p.add_argument("--input", default="")
@@ -331,7 +399,8 @@ def main() -> None:
     add("diff-live-preview", cmd_diff_live_preview)
 
     args = parser.parse_args()
-    args.func(args)
+    result = args.func(args)
+    raise SystemExit(result if isinstance(result, int) else 0)
 
 
 if __name__ == "__main__":

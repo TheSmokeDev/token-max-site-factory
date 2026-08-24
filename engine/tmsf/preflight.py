@@ -32,13 +32,19 @@ def check_live_mutation_flags(cfg: dict) -> list[str]:
 
 def grep_engine_sources() -> list[str]:
     problems = []
-    engine_dir = FACTORY_ROOT / "engine"
-    for path in sorted(engine_dir.glob("**/*.py")):
-        if path.name == "preflight.py":
+    roots = [Path(__file__).resolve().parent, FACTORY_ROOT / "engine"]
+    seen: set[Path] = set()
+    for engine_dir in roots:
+        if not engine_dir.exists():
             continue
-        for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
-            if LIVE_MUTATION_PATTERN.search(line):
-                problems.append(f"live-mutation pattern in {path.relative_to(FACTORY_ROOT)}:{lineno}")
+        for path in sorted(engine_dir.glob("**/*.py")):
+            resolved = path.resolve()
+            if resolved in seen or path.name == "preflight.py":
+                continue
+            seen.add(resolved)
+            for lineno, line in enumerate(path.read_text(encoding="utf-8").splitlines(), 1):
+                if LIVE_MUTATION_PATTERN.search(line):
+                    problems.append(f"live-mutation pattern in {path}:{lineno}")
     return problems
 
 

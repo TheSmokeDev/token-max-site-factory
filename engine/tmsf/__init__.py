@@ -17,15 +17,50 @@ for non-geo sites it simply holds the entity slug.
 
 from __future__ import annotations
 
+import os
+import sysconfig
 from pathlib import Path
 
 __version__ = "0.6.0"
 
-FACTORY_ROOT = Path(__file__).resolve().parents[2]
+SOURCE_ROOT = Path(__file__).resolve().parents[2]
+INSTALLED_ROOT = Path(sysconfig.get_path("data")) / "share" / "token-max-site-factory"
+
+
+def _has_resources(path: Path) -> bool:
+    return (path / "prompts" / "base-writer.md").is_file() and (path / "workflow-templates").is_dir()
+
+
+def _resource_root() -> Path:
+    override = os.environ.get("TOKENMAX_FACTORY_ROOT")
+    candidates = [Path(override)] if override else []
+    candidates.extend([SOURCE_ROOT, INSTALLED_ROOT])
+    for candidate in candidates:
+        resolved = candidate.expanduser().resolve()
+        if _has_resources(resolved):
+            return resolved
+    raise RuntimeError(
+        "TokenMax resources not found; install the package or set TOKENMAX_FACTORY_ROOT to a source checkout"
+    )
+
+
+FACTORY_ROOT = _resource_root()
+
+
+def workspace_root() -> Path:
+    override = os.environ.get("TOKENMAX_WORKSPACE")
+    if override:
+        return Path(override).expanduser().resolve()
+    if FACTORY_ROOT == SOURCE_ROOT and (SOURCE_ROOT / "sites").is_dir():
+        return SOURCE_ROOT
+    return Path.home() / ".tokenmax-factory"
 
 
 def factory_path(rel: str) -> Path:
-    return FACTORY_ROOT / rel
+    relative = Path(rel)
+    if relative.parts and relative.parts[0] == "sites":
+        return workspace_root() / relative
+    return FACTORY_ROOT / relative
 
 
 def target_root() -> Path:
