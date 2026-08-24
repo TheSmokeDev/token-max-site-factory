@@ -77,7 +77,11 @@ Every candidate cluster receives one action:
 
 The [geo-skills owner-intent prompt](https://github.com/TheSmokeDev/geo-skills/tree/main/prompt-packs/dataforseo-intelligence)
 can produce this handoff. Store the approved primary query and canonical route owner
-in `intent_contract`.
+in `intent_contract`. Before generation, validate the machine handoff:
+
+```bash
+tokenmax owner-map --input owner-intent-map.json --json
+```
 
 ## Community and Reddit boundary
 

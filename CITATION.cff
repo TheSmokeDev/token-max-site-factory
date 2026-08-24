@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this factory in published work, please cite it as below."
+title: "token-max-site-factory"
+type: software
+authors:
+  - family-names: "SmokeDev"
+version: 0.6.0
+repository-code: "https://github.com/TheSmokeDev/token-max-site-factory"
+url: "https://github.com/TheSmokeDev/token-max-site-factory"
+license: MIT

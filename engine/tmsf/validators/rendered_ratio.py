@@ -29,7 +29,8 @@ def rough_html(markdown: str) -> str:
             # source lane (its f-string used r'^[-*]\\s+', which matches a
             # literal backslash and so never strips the bullet). Byte-parity
             # of ratio values requires keeping it.
-            html_parts.append(f"<li>{re.sub(r'^[-*]\\s+', '', line)}</li>")
+            item_text = re.sub(r"^[-*]\\s+", "", line)
+            html_parts.append(f"<li>{item_text}</li>")
         else:
             html_parts.append(f"<p>{line}</p>")
     return "\n".join(html_parts)

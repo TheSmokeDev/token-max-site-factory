@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "token-max-site-factory"
+version = "0.6.0"
+description = "Agent-native, fail-closed programmatic SEO and GEO page factory"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [{name = "SmokeDev"}]
+keywords = [
+  "programmatic-seo",
+  "geo",
+  "generative-engine-optimization",
+  "ai-search",
+  "agentic-workflows",
+]
+dependencies = ["PyYAML>=6.0"]
+
+[project.optional-dependencies]
+dev = ["build>=1.2", "pytest>=8.0"]
+
+[project.scripts]
+tokenmax = "token_max_site_factory:main"
+
+[project.urls]
+Homepage = "https://github.com/TheSmokeDev/token-max-site-factory"
+Repository = "https://github.com/TheSmokeDev/token-max-site-factory"
+Issues = "https://github.com/TheSmokeDev/token-max-site-factory/issues"
+
+[tool.setuptools]
+package-dir = {"" = "engine"}
+py-modules = ["token_max_site_factory"]
+
+[tool.setuptools.packages.find]
+where = ["engine"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

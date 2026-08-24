@@ -41,11 +41,18 @@ community/Reddit boundaries, rollout gates, and the full release/measurement han
 
 ## Install
 
+Install the repo-local command surface once:
+
 ```bash
-python engine/token_max_site_factory.py new-site --site <id> --target-repo <path>
-python engine/token_max_site_factory.py scan --site <id> --allow-network
+python -m pip install -e ".[dev]"
+tokenmax doctor --json
+```
+
+```bash
+tokenmax new-site --site <id> --target-repo <path>
+tokenmax scan --site <id> --allow-network
 # edit sites/<id>/site.yaml
-python engine/token_max_site_factory.py install --site <id>
+tokenmax install --site <id>
 cd <target-repo> && archon workflow run token-max-site-factory-<id> "pilot-10"
 ```
 

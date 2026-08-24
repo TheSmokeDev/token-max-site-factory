@@ -1,0 +1,4 @@
+interface:
+  display_name: "TokenMax CLI"
+  short_description: "Run TokenMax generation and hard gates"
+  default_prompt: "Use $tokenmax-cli to inspect the factory, validate an owner map, or run a bounded local TokenMax workflow."
